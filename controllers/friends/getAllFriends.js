@@ -1,8 +1,8 @@
-const Friend = require("../../models/friend")
+const Friend = require("../../models/friend");
 
 const getAllFriends = async (req, res, next) => {
-    const friends = await Friend.find()
-        res.json(friends)
+    const friends = await Friend.find();
+    res.json(friends);
 }
 
-module.exports = getAllFriends
+module.exports = getAllFriends;

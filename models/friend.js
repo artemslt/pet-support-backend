@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose")
+const { Schema, model } = require("mongoose");
 
 const newSchema = Schema({
     title: {
@@ -28,8 +28,8 @@ const newSchema = Schema({
     phone: {
         type: String
     }
-}, { versionKey: false, timestamps: true })
+}, { versionKey: false, timestamps: true });
 
-    const Friend = model("friend", newSchema);
+const Friend = model("friend", newSchema);
 
-    module.exports = Friend;
+module.exports = Friend;
