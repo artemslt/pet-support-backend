@@ -27,11 +27,14 @@ const register = async (req, res) => {
   //     html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Click here to verify</a>`,
   //   };
   //   await sendEmail(verificationEmail); ЗНАДОБИТЬСЯ ЗГОДОМ
+  const { _id } = result;
   res.status(201).json({
     status: 'success',
     code: 201,
     data: {
-      result,
+      _id,
+      name,
+      email,
     },
   });
 };
