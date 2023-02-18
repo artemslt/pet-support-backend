@@ -7,6 +7,8 @@ const { users: ctrl } = require('../../controllers');
 const router = express.Router();
 
 router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
+router.put('/edit', auth, ctrlWrapper(ctrl.editInfo));
+router.get('/', auth, ctrlWrapper(ctrl.getFullInfo));
 // router.patch(
 //   '/avatars',
 //   auth,
