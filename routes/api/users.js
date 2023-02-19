@@ -7,7 +7,7 @@ const { users: ctrl } = require('../../controllers');
 const router = express.Router();
 
 router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
-router.put('/edit', auth, ctrlWrapper(ctrl.editInfo));
+router.patch('/edit', auth, ctrlWrapper(ctrl.editInfo));
 router.get('/', auth, ctrlWrapper(ctrl.getFullInfo));
 router.post('/addpet', auth, ctrlWrapper(ctrl.addPet));
 router.delete('/:petId', auth, ctrlWrapper(ctrl.removePet));
