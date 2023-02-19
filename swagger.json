@@ -29,6 +29,10 @@
       "description": "User endpoints"
     },
     {
+      "name": "News",
+      "description": "User endpoints"
+    },
+    {
       "name": "Pets",
       "description": "Pets endpoints"
     }
@@ -143,6 +147,64 @@
           }
         }
       }
+    },
+    "/api/news": {
+      "get": {
+        "tags": ["News"],
+        "summary": "News",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/friends": {
+      "get": {
+        "tags": ["Friends"],
+        "summary": "Friends",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -186,42 +248,25 @@
             "description": "User's email",
             "format": "email"
           },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          },
+
           "name": {
             "type": "string",
             "description": "User's name",
             "example": "User's Name"
           },
-          "location": {
+
+          "_id": {
             "type": "string",
-            "description": "User's location",
-            "example": "Kiyv"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's phone",
-            "example": "+38000000000"
-          },
-          "verificationToken": {
-            "type": "string",
-            "description": "User's token",
-            "example": "asdasdasdasd"
+            "description": "User's id",
+            "example": "63f14239b405b98cd800d117"
           }
         },
         "example": {
           "email": "1@gmail.com",
-          "password": "1",
           "name": "1@gmail.com",
-          "location": "Kiyv",
-          "phone": "+38000000000",
-          "verificationToken": "qwertyqwerty"
+          "_id": "63f14239b405b98cd800d117"
         }
       },
-
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -241,39 +286,14 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "User's Name"
-          },
-          "location": {
-            "type": "string",
-            "description": "User's location",
-            "example": "Kiyv"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's token",
-            "example": "+38000000000"
-          },
           "token": {
             "type": "string",
             "description": "User's token",
-            "example": "asdasdasdasd"
+            "example": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjE0MjM5YjQwNWI5OGNkODAwZDExNyIsImlhdCI6MTY3Njc1NTY3Nn0.YQx_yeavp4v"
           }
         },
         "example": {
-          "email": "1@gmail.com",
-          "password": "1",
-          "name": "1@gmail.com",
-          "location": "Kiyv",
-          "phone": "+38000000000",
-          "token": "qwertyqwerty"
+          "token": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjE0MjM5YjQwNWI5OGNkODAwZDExNyIsImlhdCI6MTY3Njc1NTY3Nn0.YQx_yeavp4v"
         }
       },
       "LogoutRequest": {
@@ -284,6 +304,108 @@
             "type": "string",
             "description": "User's id",
             "example": "63f0a479972715d34654fdfa"
+          }
+        }
+      },
+      "NewsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Friend's id",
+              "example": "63f14239b405b98cd800d117"
+            },
+            "title": {
+              "type": "string",
+              "description": "User's id",
+              "example": "Same Text"
+            },
+            "url": {
+              "type": "string",
+              "description": "User's id",
+              "example": "Same url"
+            },
+            "description": {
+              "type": "string",
+              "description": "User's id",
+              "example": "Same text"
+            },
+            "date": {
+              "type": "string",
+              "description": "User's id",
+              "format": "date"
+            }
+          }
+        }
+      },
+      "FriendsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Friend's id",
+              "example": "63f14239b405b98cd800d117"
+            },
+            "title": {
+              "type": "string",
+              "description": "Friend's title",
+              "example": "Same Text"
+            },
+            "url": {
+              "type": "string",
+              "description": "Friend's url",
+              "example": "Same url"
+            },
+            "addressUrl": {
+              "type": "string",
+              "description": "Friend's addressUrl",
+              "example": "Same url"
+            },
+            "imageUrl": {
+              "type": "string",
+              "description": "Friend's imageUrl",
+              "example": "Same url"
+            },
+            "address": {
+              "type": "string",
+              "description": "Friend's address",
+              "example": "Same address"
+            },
+            "workdays": {
+              "type": "array",
+              "description": "Friend's workdays",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "isOpen": {
+                    "type": "boolean",
+                    "format": "boolean"
+                  },
+                  "from": {
+                    "type": "string",
+                    "example": "09:00"
+                  },
+                  "to": {
+                    "type": "string",
+                    "example": "17:00"
+                  }
+                }
+              }
+            },
+            "email": {
+              "type": "string",
+              "description": "Friend's email",
+              "format": "email"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Friend's phone",
+              "example": "Same phone"
+            }
           }
         }
       },
