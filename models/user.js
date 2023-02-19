@@ -29,23 +29,19 @@ const userSchema = Schema(
       type: String,
       default: '00.00.0000',
     },
-    pets: {
-      type: Array,
-      default: [],
-    },
     token: {
       type: String,
       default: null,
     },
     avatarURL: String,
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    verificationToken: {
-      type: String,
-      required: [true, 'Verify token is required'],
-    },
+    // verify: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+    // verificationToken: {
+    //   type: String,
+    //   required: [true, 'Verify token is required'],
+    // },
   },
 
   { versionKey: false }
