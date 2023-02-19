@@ -1,6 +1,6 @@
 const { Conflict } = require('http-errors');
 const bcryptjs = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 
 const { User } = require('../../models/user');
 
@@ -10,7 +10,7 @@ const register = async (req, res) => {
   if (user) {
     throw new Conflict(`User with email ${email} already exists`);
   }
-  const verificationToken = uuidv4();
+  // const verificationToken = uuidv4();
   const hashPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
   const result = await User.create({
     name,
@@ -18,7 +18,7 @@ const register = async (req, res) => {
     password: hashPassword,
     location,
     phone,
-    verificationToken,
+    // verificationToken,
   });
 
   //   const verificationEmail = {
