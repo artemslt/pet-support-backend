@@ -29,12 +29,16 @@
       "description": "User endpoints"
     },
     {
+      "name": "Pets",
+      "description": "Pets endpoints"
+    },
+    {
       "name": "News",
       "description": "User endpoints"
     },
     {
-      "name": "Pets",
-      "description": "Pets endpoints"
+      "name": "Friends",
+      "description": "User endpoints"
     }
   ],
   "paths": {
@@ -136,6 +140,45 @@
         "responses": {
           "204": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/current": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Current User",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrentUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)",
@@ -291,9 +334,47 @@
             "description": "User's token",
             "example": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjE0MjM5YjQwNWI5OGNkODAwZDExNyIsImlhdCI6MTY3Njc1NTY3Nn0.YQx_yeavp4v"
           }
-        },
-        "example": {
-          "token": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjE0MjM5YjQwNWI5OGNkODAwZDExNyIsImlhdCI6MTY3Njc1NTY3Nn0.YQx_yeavp4v"
+        }
+      },
+      "CurrentUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "User's Name"
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "User's verificationToken",
+            "example": "User's verificationToken"
+          }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "User's Name"
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "User's verificationToken",
+            "example": "User's verificationToken"
+          }
         }
       },
       "LogoutRequest": {
