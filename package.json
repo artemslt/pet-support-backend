@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./server.js",
+    "start": "node ./server.js",
     "dev": "cross-env NODE_ENV=development nodemon ./server.js",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js"
@@ -31,6 +34,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.1",
     "morgan": "^1.10.0",
+    "swagger-ui-express": "^4.6.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
