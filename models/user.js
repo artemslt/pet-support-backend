@@ -15,29 +15,26 @@ const userSchema = Schema(
     },
     name: {
       type: String,
-      required: [true, 'Enter your name'],
+      default: 'New user',
     },
     location: {
       type: String,
-      required: [true, 'Choose your city'],
+      default: 'The best in the world',
     },
     phone: {
       type: String,
-      required: [true, 'Enter your phone number'],
+      default: '+380000000000',
     },
     birthday: {
       type: String,
       default: '00.00.0000',
-    },
-    pets: {
-      type: Array,
-      default: [],
     },
     token: {
       type: String,
       default: null,
     },
     avatarURL: String,
+
     verify: {
       type: Boolean,
       default: false,
@@ -50,21 +47,53 @@ const userSchema = Schema(
       type: Array,
       defailt: []
     }
+
   },
 
   { versionKey: false }
 );
 
+const emailRegexp =
+  /^([a-zA-Z0-9_.]+){1}([a-zA-Z0-9_\-.]+){1}@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,3})$/;
+const passwordRegexp = /^\S*$/;
+const nameRegexp = /^([a-zA-Zа-яА-ЯёЁ\s]+)$/;
+const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+const locationRegexp =
+  /^(?:(?:\w+-\w+)+|(?:\w+)+),\s(?:(?:\w+-\w+)+|(?:\w+)+)$/;
+
 const joiRegisterSchema = Joi.object({
-  email: Joi.string().required(),
-  password: Joi.string().min(6).required(),
-  name: Joi.string().required(),
-  location: Joi.string().required(),
-  phone: Joi.string().required(),
+  email: Joi.string()
+    .email()
+    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
+    .min(10)
+    .max(63)
+    .required('Email must be in format mail@mail.com'),
+  password: Joi.string()
+    .pattern(passwordRegexp, 'Whitespace is not allowed')
+    .min(7)
+    .max(32)
+    .required('Password is required'),
+  name: Joi.string().pattern(nameRegexp, 'Name must contain only letters'),
+  location: Joi.string().pattern(
+    locationRegexp,
+    'Location must be in format City, Region'
+  ),
+  phone: Joi.string()
+    .max(13)
+    .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
 });
 const joiLoginSchema = Joi.object({
-  email: Joi.string().required(),
-  password: Joi.string().min(6).required(),
+  email: Joi.string()
+    .email()
+    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
+    .min(10)
+    .max(63)
+    .required('Email must be in format mail@mail.com'),
+  password: Joi.string()
+    .pattern(passwordRegexp, 'Whitespace is not allowed')
+    .min(7)
+    .max(32)
+    .required('Password is required'),
 });
 
 const User = model('user', userSchema);
