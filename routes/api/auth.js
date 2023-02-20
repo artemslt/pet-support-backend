@@ -14,6 +14,6 @@ router.post(
 );
 router.post('/login', validation(joiLoginSchema), ctrlWrapper(ctrl.login));
 router.get('/logout', auth, ctrlWrapper(ctrl.logout));
-router.get('/googlelogin', ctrlWrapper(ctrl.googleLogin));
+router.post('/googlelogin', ctrlWrapper(ctrl.googleLogin));
 
 module.exports = router;

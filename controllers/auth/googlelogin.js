@@ -5,35 +5,42 @@ const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = process.env;
 
 const googleLogin = async (req, res) => {
-  const { email } = req.user;
-  const user = await User.findOne({ email });
-  if (user) {
+  const { email, name } = req.body;
+  const registeredUser = await User.findOne({ email });
+  if (registeredUser) {
     const payload = {
-      id: user._id,
+      id: registeredUser._id,
     };
     const token = jwt.sign(payload, SECRET_KEY);
-    const result = await User.findByIdAndUpdate(user._id, { token });
+    const user = await User.findByIdAndUpdate(registeredUser._id, { token });
+    const { location, phone } = user;
     res.json({
       status: 'success',
       code: 200,
       data: {
-        result,
+        user: { name, email, location, phone },
+        token,
       },
     });
   }
-  const { name } = user;
   const password = await bcryptjs.hash(Date.now(), 10);
   const hashPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
-  const result = await User.create({
+  const user = await User.create({
     name,
     email,
     password: hashPassword,
   });
+  const payload = {
+    id: user._id,
+  };
+  const token = jwt.sign(payload, SECRET_KEY);
+  const { location, phone } = user;
   res.json({
     status: 'success',
     code: 201,
     data: {
-      result,
+      user: { name, email, location, phone },
+      token,
     },
   });
 };
