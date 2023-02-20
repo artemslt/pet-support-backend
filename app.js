@@ -14,6 +14,7 @@ const newsRouter = require('./routes/api/news');
 const friendsRouter = require('./routes/api/friends');
 const authRouter = require('./routes/api/auth');
 const usersRouter = require('./routes/api/users');
+const noticesRouter = require("./routes/api/notices");
 
 app.use(logger(formatsLogger));
 app.use(cors());
@@ -25,6 +26,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/friends', friendsRouter);
+app.use('/api/notices', noticesRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
