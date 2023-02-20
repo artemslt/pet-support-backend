@@ -4,14 +4,6 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 
-const cloudinary = require("cloudinary").v2;
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true
-});
-
 const app = express();
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -30,6 +22,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/friends', friendsRouter);
+app.use('/api/notices', noticesRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
