@@ -2,16 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
-const addNewNotice = require("../../controllers/notices/addNewNotice");
-const getNoticesByCategory = require("../../controllers/notices/getNoticesByCategory");
-const getNoticeById = require("../../controllers/notices/getNoticeById");
-const ctrlWrapper = require("../../middleware/ctrlWrapper");
+const { notices: ctrl } = require('../../controllers');
+const { ctrlWrapper } = require("../../middleware/ctrlWrapper");
+const { auth } = require("../../middleware/auth");
 const upload = require("../../middleware/upload");
-const removeNoticeById = require("../../controllers/notices/removeNoticeById")
 
-router.get("/:category", ctrlWrapper(getNoticesByCategory));
-router.get("/notice/:noticeId", ctrlWrapper(getNoticeById));
-router.post("/", upload.single("image"), ctrlWrapper(addNewNotice));
-router.delete("/notice/:noticeId", ctrlWrapper(removeNoticeById))
+router.get("/notices/:category", ctrlWrapper(ctrl.getNoticesByCategory));
+router.get("/notice/:noticeId", ctrlWrapper(ctrl.getNoticeById));
+router.get("/", auth, ctrlWrapper(ctrl.getNoticesByUser));
+router.get("/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
+router.post("/notice", auth, upload.single("image"), ctrlWrapper(ctrl.addNewNotice));
+router.post("/favorite/:noticeId", auth, ctrlWrapper(ctrl.addNoticeToFavorites));
+router.delete("/notice/:noticeId", auth, ctrlWrapper(ctrl.removeNoticeById));
+router.delete("/favorite/:noticeId", auth, ctrlWrapper(ctrl.removeNoticeFromFavorites));
+router.get("/:search", ctrlWrapper(ctrl.getNoticeByKeyword))
+
 
 module.exports = router;
