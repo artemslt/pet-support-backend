@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-// const gravatar = require("gravatar");
 
 const newSchema = Schema({
   category: {
@@ -9,7 +8,8 @@ const newSchema = Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    text: true
   },
   name: {
     type: String
@@ -31,8 +31,7 @@ const newSchema = Schema({
   },
   price: {
     type: Number,
-    min: 0.1,
-    // required for sell category
+    min: 0.1
   },
   image: {
     type: String,
@@ -41,11 +40,11 @@ const newSchema = Schema({
   comments: {
     type: String
   },
-  // owner: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'user',
-  //   required: true
-  // }
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  }
 }, {versionKey: false, timestamps: true});
 
 const Notice = model("notice", newSchema);
