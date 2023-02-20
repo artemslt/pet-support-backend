@@ -1,10 +1,13 @@
 const Notice = require("../../models/notice");
+const { NotFound } = require('http-errors');
 
 const getNoticeById = async (req, res) => {
   const { noticeId } = req.params;
-  console.log(req.params)
   const notice = await Notice.findById(noticeId);
-  console.log(notice)
+
+  if (!notice) {
+    throw new NotFound("Notice does not exist")
+  }
   res.json({ notice });
 };
 
