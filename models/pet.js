@@ -31,8 +31,12 @@ const petSchema = new Schema(
   { versionKey: false }
 );
 
+const nameRegexp = /^([a-zA-Zа-яА-ЯёЁ\s]+)$/;
+
 const joiSchema = Joi.object({
-  name: Joi.string().required(),
+  name: Joi.string()
+    .pattern(nameRegexp, 'Name must contain only letters')
+    .required(),
   birthday: Joi.string().required(),
   breed: Joi.string().required(),
   photo: Joi.string(),

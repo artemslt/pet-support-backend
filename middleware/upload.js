@@ -1,9 +1,10 @@
-const multer = require("multer");
-const path = require("path");
-const { UnsupportedMediaType } = require("http-errors");
+const multer = require('multer');
+const path = require('path');
+const { UnsupportedMediaType } = require('http-errors');
 require('dotenv').config();
 
-const tempDir = path.join(__dirname, "../", "temp");
+const tempDir = path.join(__dirname, '../', 'temp');
+
 
 const multerConfig = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -11,6 +12,7 @@ const multerConfig = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
+
   }
 });
 
@@ -32,3 +34,4 @@ const upload = multer({
 })
 
 module.exports = upload;
+
