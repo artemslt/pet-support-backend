@@ -1,3 +1,3 @@
-const getAllFriends = require("./getAllFriends");
+const getAllFriends = require('./getAllFriends');
 
-module.exports = getAllFriends;
+module.exports = { getAllFriends };
