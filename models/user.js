@@ -46,6 +46,10 @@ const userSchema = Schema(
       type: String,
       required: [true, 'Verify token is required'],
     },
+    favorite: {
+      type: Array,
+      defailt: []
+    }
   },
 
   { versionKey: false }
