@@ -11,7 +11,13 @@ const getNoticesByCategory = async (req, res) => {
     throw NotFound("There is no notices in this category");
   };
 
-  res.json({ result });
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result
+    }
+  });
 };
 
 module.exports = getNoticesByCategory;

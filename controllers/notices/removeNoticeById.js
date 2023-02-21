@@ -10,7 +10,11 @@ const removeNoticeById = async (req, res) => {
     throw new NotFound("Notice does not exist");
   };
 
-  res.json({ message: "Notice has been removed " });
+  res.json({
+    status: "success",
+    code: 200,
+    message: "Notice has been removed "
+  });
 };
 
 module.exports = removeNoticeById;

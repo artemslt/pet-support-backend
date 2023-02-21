@@ -8,7 +8,13 @@ const getNoticeById = async (req, res) => {
   if (!notice) {
     throw new NotFound("Notice does not exist")
   }
-  res.json({ notice });
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      notice
+    }
+  });
 };
 
 module.exports = getNoticeById;

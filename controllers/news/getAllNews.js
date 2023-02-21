@@ -6,7 +6,13 @@ const getAllNews = async (req, res, next) => {
   if (news.length === 0) {
     throw NotFound("There is no news added")
   }
-  res.json(news);
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      news
+    }
+  });
 };
 
 module.exports = getAllNews;

@@ -8,7 +8,7 @@ const newSchema = Schema({
   },
   title: {
     type: String,
-    required: true,
+    required: [true, "Please, add the title to the notice"],
     text: true
   },
   name: {
@@ -23,11 +23,11 @@ const newSchema = Schema({
   sex: {
     type: String,
     enum: ["male", "female"],
-    required: true
+    required: [true, "Please, select a sex of your pet"]
   },
   location: {
     type: String,
-    required: true
+    required: [true, "Please, selecvt a location"]
   },
   price: {
     type: Number,
@@ -35,7 +35,7 @@ const newSchema = Schema({
   },
   image: {
     type: String,
-    required: true
+    required: [true, "Please, add an image to your notice"]
   },
   comments: {
     type: String

@@ -7,15 +7,21 @@ const getFavoriteNotices = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
-  const currentUser = await User.findOne({ _id: userId }, "", {skip, limit: Number(limit)}).populate("favorite");
-
+  const currentUser = await User.findOne({ _id: userId }, "", { skip, limit: Number(limit) }).populate("favorite");
+  
   const result = currentUser.favorite;
 
   if (result.length === 0) {
     throw new NotFound("Sorry, you do not have favorite notices")
   }
 
-  res.json(result)
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result
+    }
+  })
 }
 
 module.exports = getFavoriteNotices;

@@ -12,13 +12,27 @@ const addNewNotice = async (req, res) => {
   const { _id: owner } = req.user;
 
   const { path: upload } = req.file;
-  const { url } = await cloudinary.uploader.upload(upload);
+  const { url } = await cloudinary.uploader.upload(upload, {
+    transformation: [{
+      width: 288,
+      height: 288,
+      gravity: "face",
+      crop: "fill"
+    }]
+  });
   const image = url;
   
   fs.unlink(upload);
 
   const newNotice = await Notice.create({...req.body, image, owner});
-  res.json({ newNotice });
+  res.json({
+    status: "success",
+    code: 200,
+    message: "Notice has been successfully added",
+    data: {
+      newNotice
+    }
+  });
 };
 
 module.exports = addNewNotice;
