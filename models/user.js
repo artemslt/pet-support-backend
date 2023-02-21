@@ -33,7 +33,10 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-
+    favorite: [{
+      type: Schema.ObjectId,
+      ref: "notice"
+    }],
     avatarURL: { type: String, default: null },
     // verify: {
     //   type: Boolean,
