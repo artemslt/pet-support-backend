@@ -1,9 +1,9 @@
 const { User } = require("../../models/user");
 const { NotFound } = require("http-errors");
-const { Conflict } = require("http-errors");
 const Notice = require("../../models/notice");
+const { Conflict } = require('http-errors');
 
-const addNoticeToFavorites = async (req, res, next) => {
+const addNoticeToFavorites = async (req, res) => {
   const { noticeId } = req.params;
   const { id: userId } = req.user;
   const notice = await Notice.findById(noticeId)
@@ -17,12 +17,16 @@ const addNoticeToFavorites = async (req, res, next) => {
   };
 
   if (result.favorite.includes(noticeId)) {
-    throw new Conflict("sorry, you already added notice to the list of favorites");
+    throw new Conflict ("This notice has been already added to the list of favorites")
   };
 
   res.json({
-    message: "Notice has been successfully added",
-    data: { result }
+    status: "success",
+    code: 200,
+    message: "Notice has been successfully added to the list of favorites",
+    data: {
+      result
+    }
   });
 };
 

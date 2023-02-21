@@ -11,7 +11,13 @@ const getNoticesByUser = async (req, res, next) => {
     throw new NotFound("You do not have any notices")
   };
 
-  res.json(result);
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result
+    }
+  });
 };
 
 module.exports = getNoticesByUser;

@@ -7,9 +7,15 @@ const getNoticeByKeyword = async (req, res) => {
   const result = await Notice.find({ $text: { $search: query } });
   
   if (result.length === 0) {
-    throw new NotFound("There is no notices by yiur query")
+    throw new NotFound("There is no notices by your query")
   }
-  res.json({ result })
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result
+    }
+  })
 };
 
 module.exports = getNoticeByKeyword;
