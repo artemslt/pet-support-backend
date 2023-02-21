@@ -19,11 +19,14 @@ const updateAvatar = async (req, res) => {
     height: 150,
     Crop: 'fill',
   });
-  const userId = req.user._id;
-  await User.findByIdAndUpdate(userId, { avatarURL: url });
+  const user = req.user;
+  await User.findByIdAndUpdate(user._id, { avatarURL: url });
   res.status(200).json({
     status: 'success',
     code: 200,
+    data: {
+      avatarURL: user.avatarURL,
+    },
   });
 };
 
