@@ -24,7 +24,7 @@ const newSchema = Schema({
   breed: {
     type: String,
     minLength: 2,
-    maxLength: 24
+    maxLength: 40
   },
   sex: {
     type: String,
