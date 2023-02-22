@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const { User } = require('../../models/user');
+const fs = require('fs/promises');
 require('dotenv').config();
 
 cloudinary.config({
@@ -9,23 +10,32 @@ cloudinary.config({
 });
 
 const updateAvatar = async (req, res) => {
-  const avatarName = req.file.originalname;
-  cloudinary.uploader.upload(req.file.path, {
-    public_id: avatarName,
+  const { path: upload } = req.file;
+  const { url } = await cloudinary.uploader.upload(upload, {
+    transformation: [
+      {
+        width: 233,
+        height: 233,
+        gravity: 'face',
+        crop: 'fill',
+      },
+    ],
+  });
+  const image = url;
+  console.log(image);
+
+  fs.unlink(upload);
+
+  const user = req.user._id;
+  await User.findByIdAndUpdate(user, {
+    avatarURL: image,
   });
 
-  const url = cloudinary.url(avatarName, {
-    width: 100,
-    height: 150,
-    Crop: 'fill',
-  });
-  const user = req.user;
-  await User.findByIdAndUpdate(user._id, { avatarURL: url });
   res.status(200).json({
     status: 'success',
     code: 200,
     data: {
-      avatarURL: user.avatarURL,
+      avatarURL: image,
     },
   });
 };
