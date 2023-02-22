@@ -33,10 +33,12 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-    favorite: [{
-      type: Schema.ObjectId,
-      ref: "notice"
-    }],
+    favorite: [
+      {
+        type: Schema.ObjectId,
+        ref: 'notice',
+      },
+    ],
     avatarURL: { type: String, default: null },
     // verify: {
     //   type: Boolean,
@@ -63,7 +65,7 @@ const joiRegisterSchema = Joi.object({
   email: Joi.string()
     .email()
     .pattern(emailRegexp, 'Email must be in format mail@mail.com')
-    .min(10)
+    .min(6)
     .max(63)
     .required('Email must be in format mail@mail.com'),
   password: Joi.string()
