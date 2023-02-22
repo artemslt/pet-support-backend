@@ -14,10 +14,10 @@ const addNoticeToFavorites = async (req, res) => {
 
   if (!notice) {
     throw NotFound("Sorry, there is no ad");
-  };
+  }
 
   if (result.favorite.includes(noticeId)) {
-    throw new Conflict ("This notice has been already added to the list of favorites")
+    throw new Conflict("This notice has been already added to the list of favorites");
   };
 
   res.json({
