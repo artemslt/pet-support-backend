@@ -9,16 +9,22 @@ const newSchema = Schema({
   title: {
     type: String,
     required: [true, "Please, add the title to the notice"],
+    minLength: 2,
+    maxLength: 48,
     text: true
   },
   name: {
-    type: String
+    type: String,
+    minLength: 2,
+    maxLength: 16
   },
   date: {
     type: Date
   },
   breed: {
-    type: String
+    type: String,
+    minLength: 2,
+    maxLength: 24
   },
   sex: {
     type: String,
@@ -27,18 +33,21 @@ const newSchema = Schema({
   },
   location: {
     type: String,
-    required: [true, "Please, selecvt a location"]
+    required: [true, "Please, select a location"]
   },
   price: {
     type: Number,
-    min: 0.1
+    min: 1
   },
   image: {
     type: String,
     required: [true, "Please, add an image to your notice"]
   },
   comments: {
-    type: String
+    type: String,
+    required: [true, "Please, add some comments to your notice"],
+    minLength: 8,
+    maxLength: 120
   },
   owner: {
     type: Schema.Types.ObjectId,
