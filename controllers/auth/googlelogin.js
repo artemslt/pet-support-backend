@@ -23,7 +23,7 @@ const googleLogin = async (req, res) => {
       },
     });
   }
-  const password = await bcryptjs.hash(Date.now(), 10);
+  const password = await bcryptjs.hash(Date.now(), toString(), 10);
   const hashPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
   const user = await User.create({
     name,
