@@ -96,13 +96,8 @@ const joiLoginSchema = Joi.object({
     .required('Password is required'),
 });
 const joiGoogleLoginSchema = Joi.object({
-  name: Joi.string().pattern(nameRegexp, 'Name must contain only letters'),
-  email: Joi.string()
-    .email()
-    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
-    .min(10)
-    .max(63)
-    .required('Email is required'),
+  name: Joi.string().required('Name is required'),
+  email: Joi.string().email().required('Email is required'),
 });
 
 const User = model('user', userSchema);
