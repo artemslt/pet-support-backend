@@ -95,6 +95,25 @@ const joiLoginSchema = Joi.object({
     .max(32)
     .required('Password is required'),
 });
+const joiGoogleLoginSchema = Joi.object({
+  name: Joi.string().pattern(nameRegexp, 'Name must contain only letters'),
+  email: Joi.string()
+    .email()
+    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
+    .min(10)
+    .max(63)
+    .required('Email is required'),
+  password: Joi.string()
+    .pattern(passwordRegexp, 'Whitespace is not allowed')
+    .min(7)
+    .max(32)
+    .required('Password is required'),
+});
 
 const User = model('user', userSchema);
-module.exports = { User, joiRegisterSchema, joiLoginSchema };
+module.exports = {
+  User,
+  joiRegisterSchema,
+  joiLoginSchema,
+  joiGoogleLoginSchema,
+};
