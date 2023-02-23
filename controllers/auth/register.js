@@ -8,7 +8,7 @@ const register = async (req, res) => {
   const user = await User.findOne({ email });
   if (user) {
     return res
-      .status(409)
+      .status(400)
       .json({ message: `User with email ${email} already exists` });
   }
   // const verificationToken = uuidv4();
