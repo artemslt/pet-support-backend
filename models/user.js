@@ -56,10 +56,10 @@ const userSchema = Schema(
 const emailRegexp =
   /^([a-zA-Z0-9_.]+){1}([a-zA-Z0-9_\-.]+){1}@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,3})$/;
 const passwordRegexp = /^\S*$/;
-const nameRegexp = /^([a-zA-Zа-яА-ЯёЁ\s]+)$/;
+const nameRegexp = /^([a-zA-Zа-яА-ЯІіЇїЄє\s]+)$/;
 const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 const locationRegexp =
-  /^(?:(?:\w+-\w+)+|(?:\w+)+),\s(?:(?:\w+-\w+)+|(?:\w+)+)$/;
+  /^([a-zA-Zа-яА-ЯІіЇїЄє]+){2}, ([a-zA-Zа-яА-ЯІіЇїЄє]+){2}$/;
 
 const joiRegisterSchema = Joi.object({
   email: Joi.string()
