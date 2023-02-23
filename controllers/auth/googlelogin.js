@@ -35,7 +35,10 @@ const googleLogin = async (req, res) => {
   };
   const token = jwt.sign(payload, SECRET_KEY);
   const { location, phone } = user;
-  res.json({
+  await User.findByIdAndUpdate(user._id, {
+    token,
+  });
+  res.status(201).json({
     status: 'success',
     code: 201,
     data: {

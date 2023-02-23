@@ -5,7 +5,6 @@ const { ctrlWrapper } = require('../../middleware/ctrlWrapper');
 const { auth: ctrl } = require('../../controllers');
 const {
   joiRegisterSchema,
-  joiLoginSchema,
   joiGoogleLoginSchema,
 } = require('../../models/user');
 
@@ -16,7 +15,7 @@ router.post(
   validation(joiRegisterSchema),
   ctrlWrapper(ctrl.register)
 );
-router.post('/login', validation(joiLoginSchema), ctrlWrapper(ctrl.login));
+router.post('/login', ctrlWrapper(ctrl.login));
 router.get('/logout', auth, ctrlWrapper(ctrl.logout));
 router.post(
   '/googlelogin',

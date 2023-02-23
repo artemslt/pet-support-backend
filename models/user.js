@@ -19,7 +19,7 @@ const userSchema = Schema(
     },
     location: {
       type: String,
-      default: 'The best in the world',
+      default: 'City, Region',
     },
     phone: {
       type: String,
