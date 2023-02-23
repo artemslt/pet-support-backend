@@ -9,8 +9,8 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
   "servers": [
     {
       "url": "http://localhost:4000"
@@ -29,7 +29,7 @@
       "description": "User endpoints"
     },
     {
-      "name": "Pets",
+      "name": "Notices",
       "description": "Pets endpoints"
     },
     {
@@ -47,7 +47,6 @@
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -86,7 +85,6 @@
         "tags": ["Auth"],
         "summary": "User login",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Login's object",
           "required": true,
@@ -99,7 +97,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -124,19 +122,9 @@
       "get": {
         "tags": ["Auth"],
         "summary": "User logout",
-        "parameters": [],
+        "parameters": [{ "in": "path", "name": "_id" }],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Logout's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LogoutRequest"
-              }
-            }
-          }
-        },
+
         "responses": {
           "204": {
             "description": "Successful operation"
@@ -153,24 +141,13 @@
       }
     },
     "/api/users/current": {
-      "post": {
+      "get": {
         "tags": ["User"],
         "summary": "Current User",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "User's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CurrentUserRequest"
-              }
-            }
-          }
-        },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -191,6 +168,164 @@
         }
       }
     },
+    "/api/users/edit": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Edit current user information",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditeUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/avatar": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update user's avatar",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrentUserAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Current full user information",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/addpet": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Add user's pet",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/{petId}": {
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete pet by id",
+        "parameters": [{ "in": "path", "name": "petId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/news": {
       "get": {
         "tags": ["News"],
@@ -199,7 +334,7 @@
         "security": [{ "Bearer": [] }],
 
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -248,14 +383,260 @@
           }
         }
       }
+    },
+    "/api/notices/notices/{category}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Notices by category",
+        "parameters": [{ "in": "path", "name": "category" }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListschema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/notice/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get notices by id",
+        "parameters": [{ "in": "path", "name": "noticeId" }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Delete notices by id",
+        "parameters": [{ "in": "path", "name": "noticeId" }],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get user's notices",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListschema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/favorite": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get user's favorite notices",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListschema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/favorite/{noticeId}": {
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add notices to favorite",
+        "parameters": [{ "in": "path", "name": "noticeId" }],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Remove notice from favorite",
+        "parameters": [{ "in": "path", "name": "noticeId" }],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/notice": {
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add new notice",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Notice object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NewNoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/{search}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Search notices",
+        "parameters": [{ "in": "path", "name": "search" }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListschema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "RegistrationRequest": {
         "type": "object",
-        "required": ["email", "password", "name", "location", "phone"],
+        "required": ["name", "email", "password", "location", "phone"],
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Name"
+          },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -266,48 +647,45 @@
             "description": "User's password",
             "example": "qwerty123"
           },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "User's Name"
-          },
           "location": {
             "type": "string",
             "description": "User's location",
-            "example": "Kiyv"
+            "example": "Kiyv, Ukraine"
           },
           "phone": {
             "type": "string",
             "description": "User's phone",
-            "example": "+38000000000"
+            "example": "+380000000000"
           }
         }
       },
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "email": {
+          "_id": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
+            "description": "User's id",
+            "example": "63f14239b405b98cd800d117"
           },
-
           "name": {
             "type": "string",
             "description": "User's name",
             "example": "User's Name"
           },
-
-          "_id": {
+          "email": {
             "type": "string",
-            "description": "User's id",
-            "example": "63f14239b405b98cd800d117"
+            "description": "User's email",
+            "format": "email"
           }
         },
         "example": {
-          "email": "1@gmail.com",
-          "name": "1@gmail.com",
-          "_id": "63f14239b405b98cd800d117"
+          "status": "success",
+          "code": 201,
+          "data": {
+            "_id": "63f695b9a370114fcc63202a",
+            "name": "Name",
+            "email": "user123@example.com"
+          }
         }
       },
       "LoginRequest": {
@@ -329,52 +707,150 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Kiyv, Ukraine"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380000000000"
+              }
+            }
+          },
           "token": {
             "type": "string",
             "description": "User's token",
-            "example": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjE0MjM5YjQwNWI5OGNkODAwZDExNyIsImlhdCI6MTY3Njc1NTY3Nn0.YQx_yeavp4v"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjExN2RhZmI4ZWYxNjA4ZTkyZTk1NiIsImlhdCI6MTY3NzA4NzQ2NX0.ENQFhnaU_5D-iuOb0GitwboXROV-8cXo4Ko0mdyZRk"
           }
-        }
-      },
-      "CurrentUserRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "User's Name"
-          },
-          "verificationToken": {
-            "type": "string",
-            "description": "User's verificationToken",
-            "example": "User's verificationToken"
+        },
+        "example": {
+          "status": "success",
+          "code": 200,
+          "data": {
+            "user": {
+              "name": "Name",
+              "email": "user123@example.com",
+              "location": "Kiyv, Ukraine",
+              "phone": "+380000000000"
+            },
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjY5NWI5YTM3MDExNGZjYzYzMjAyYSIsImlhdCI6MTY3NzEwNDcyNH0.gFE_A-RS47dgyBSWpU_QrnLKPw2ToZ4DBFmUYZi6gfw"
           }
         }
       },
       "CurrentUserResponse": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Name"
+          },
           "email": {
             "type": "string",
             "description": "User's email",
             "format": "email"
           },
+          "location": {
+            "type": "string",
+            "description": "User's location",
+            "example": "Kiyv, Ukraine"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380000000000"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "00.00.0000"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "Same url"
+          },
+          "pets": {
+            "type": "array",
+            "description": "User's birthday",
+            "example": "Same url"
+          }
+        },
+        "example": {
+          "status": "success",
+          "code": 200,
+          "data": {
+            "name": "Name",
+            "email": "user123@example.com",
+            "location": "Kiyv, Ukraine",
+            "phone": "+380000000000",
+            "birthday": "00.00.0000",
+            "avatarURL": null,
+            "pets": []
+          }
+        }
+      },
+      "CurrentUserAvatarRequest": {
+        "type": "object",
+        "required": ["avatar"],
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "description": "User avatar",
+            "format": "binary"
+          }
+        }
+      },
+      "EditeUserRequest": {
+        "type": "object",
+        "properties": {
           "name": {
             "type": "string",
             "description": "User's name",
-            "example": "User's Name"
+            "example": "Name"
           },
-          "verificationToken": {
+          "email": {
             "type": "string",
-            "description": "User's verificationToken",
-            "example": "User's verificationToken"
+            "description": "User's email",
+            "format": "email"
+          },
+          "location": {
+            "type": "string",
+            "description": "User's location",
+            "example": "Kiyv, Ukraine"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380000000000"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "00.00.0000"
           }
+        },
+        "example": {
+          "name": "Name",
+          "email": "user123@example.com",
+          "location": "Kiyv, Ukraine",
+          "phone": "+380000000000",
+          "birthday": "00.00.0000"
         }
       },
       "LogoutRequest": {
@@ -490,12 +966,406 @@
           }
         }
       },
-      "securitySchemes": {
-        "Bearer": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
+      "AddPetRequest": {
+        "type": "object",
+        "required": ["name", "birthday", "breed"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Amaly"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "27.06.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "Dog"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Pet name's",
+            "example": "She is good"
+          }
         }
+      },
+      "AddPetResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Pet's name",
+              "example": "Amaly"
+            },
+            "birthday": {
+              "type": "string",
+              "description": "Pet's birthday",
+              "example": "19.06.2022"
+            },
+            "breed": {
+              "type": "string",
+              "description": "Pet's breed",
+              "example": "Same url"
+            },
+            "photo": {
+              "type": "string",
+              "description": "Pet's photo",
+              "example": "http://res.cloudinary.com/dtk7nhyzp/image/upload/h_150,w_100/nils%20cat.png"
+            },
+            "comment": {
+              "type": "string",
+              "description": "User's commet",
+              "example": "good cat"
+            },
+            "owner": {
+              "type": "string",
+              "description": "Owmer's id",
+              "example": "63f695b9a370114fcc63202a"
+            },
+            "_id": {
+              "type": "string",
+              "description": "Pet's id",
+              "example": "63f72058bbba3338d0016353"
+            }
+          },
+          "example": {
+            "status": "success",
+            "code": 201,
+            "data": {
+              "result": {
+                "name": "Nil",
+                "birthday": "19.06.2022",
+                "breed": "britanian",
+                "photo": "http://res.cloudinary.com/dtk7nhyzp/image/upload/h_150,w_100/nils%20cat.png",
+                "comment": "good cat",
+                "owner": "63f695b9a370114fcc63202a",
+                "_id": "63f72058bbba3338d0016353"
+              }
+            }
+          }
+        }
+      },
+      "NoticesListschema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Pet's id",
+              "example": "63f72058bbba3338d0016353"
+            },
+            "category": {
+              "type": "string",
+              "description": "Pet's category can be sell, lost-found, for-free",
+              "example": "sell"
+            },
+            "title": {
+              "type": "string",
+              "description": "Notices title",
+              "example": "Продаю кошеня"
+            },
+            "name": {
+              "type": "string",
+              "description": "Pet's name",
+              "example": "Amaly"
+            },
+            "breed": {
+              "type": "string",
+              "description": "Pet's breed",
+              "example": "britanian"
+            },
+            "sex": {
+              "type": "string",
+              "description": "Pet's sex male female",
+              "example": "male"
+            },
+            "location": {
+              "type": "string",
+              "description": "Pet's location",
+              "example": "Київ, Україна"
+            },
+            "price": {
+              "type": "integer",
+              "description": "Pet's price",
+              "example": "500"
+            },
+            "image": {
+              "type": "string",
+              "description": "Pet's photo",
+              "example": "http://res.cloudinary.com/dtk7nhyzp/image/upload/h_150,w_100/nils%20cat.png"
+            },
+            "comments": {
+              "type": "string",
+              "description": "User's commet",
+              "example": "good cat"
+            },
+            "owner": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "User's id",
+                  "example": "63f3306945cc47c53a8fd33d"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "User's name",
+                  "example": "Valeriia"
+                }
+              }
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Date of creation notice",
+              "format": "dateTime"
+            },
+            "updatedAt": {
+              "type": "string",
+              "description": "Date of update notice",
+              "format": "dateTime"
+            }
+          }
+        },
+        "example": {
+          "status": "success",
+          "code": 201,
+          "data": {
+            "result": [
+              {
+                "_id": "63f330d345cc47c53a8fd34e",
+                "category": "sell",
+                "title": "Продаю кошеня",
+                "name": "Димок",
+                "breed": "Британський короткошерсний",
+                "sex": "male",
+                "location": "Київ, Україна",
+                "price": 500,
+                "image": "http://res.cloudinary.com/dtk7nhyzp/image/upload/v1676882130/muktgrmyiudgodkxzvgt.jpg",
+                "comments": "Продаю кошеня породи британський короткошерсний. Дуже добрий та лагідний.",
+                "owner": {
+                  "_id": "63f3306945cc47c53a8fd33d",
+                  "email": "valeriia@gmail.com",
+                  "name": "Valeriia"
+                },
+                "createdAt": "2023-02-20T08:35:31.834Z",
+                "updatedAt": "2023-02-20T08:35:31.834Z"
+              },
+              {
+                "_id": "63f330d345cc47c53a8fd34e",
+                "category": "sell",
+                "title": "Продаю кошеня",
+                "name": "Димок",
+                "breed": "Британський короткошерсний",
+                "sex": "male",
+                "location": "Київ, Україна",
+                "price": 500,
+                "image": "http://res.cloudinary.com/dtk7nhyzp/image/upload/v1676882130/muktgrmyiudgodkxzvgt.jpg",
+                "comments": "Продаю кошеня породи британський короткошерсний. Дуже добрий та лагідний.",
+                "owner": {
+                  "_id": "63f3306945cc47c53a8fd33d",
+                  "email": "valeriia@gmail.com",
+                  "name": "Valeriia"
+                },
+                "createdAt": "2023-02-20T08:35:31.834Z",
+                "updatedAt": "2023-02-20T08:35:31.834Z"
+              }
+            ]
+          }
+        }
+      },
+      "NoticeSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Pet's id",
+            "example": "63f72058bbba3338d0016353"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pet's category can be sell, lost-found, for-free",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Notices title",
+            "example": "Продаю кошеня"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Amaly"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "britanian"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex male, female",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Київ, Україна"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Pet's price",
+            "example": "500"
+          },
+          "image": {
+            "type": "string",
+            "description": "Pet's photo",
+            "example": "http://res.cloudinary.com/dtk7nhyzp/image/upload/h_150,w_100/nils%20cat.png"
+          },
+          "comments": {
+            "type": "string",
+            "description": "User's commet",
+            "example": "good cat"
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "63f3306945cc47c53a8fd33d"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Valeriia"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date of creation notice",
+            "format": "dateTime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date of update notice",
+            "format": "dateTime"
+          }
+        },
+        "example": {
+          "status": "success",
+          "code": 201,
+          "data": {
+            "result": {
+              "_id": "63f330d345cc47c53a8fd34e",
+              "category": "sell",
+              "title": "Продаю кошеня",
+              "name": "Димок",
+              "breed": "Британський короткошерсний",
+              "sex": "male",
+              "location": "Київ, Україна",
+              "price": 500,
+              "image": "http://res.cloudinary.com/dtk7nhyzp/image/upload/v1676882130/muktgrmyiudgodkxzvgt.jpg",
+              "comments": "Продаю кошеня породи британський короткошерсний. Дуже добрий та лагідний.",
+              "owner": {
+                "_id": "63f3306945cc47c53a8fd33d",
+                "email": "valeriia@gmail.com",
+                "name": "Valeriia"
+              },
+              "createdAt": "2023-02-20T08:35:31.834Z",
+              "updatedAt": "2023-02-20T08:35:31.834Z"
+            }
+          }
+        }
+      },
+      "NewNoticeRequest": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Notices category can be sell, lost-found, for-free",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Notices title",
+            "example": "Продаю кошеня"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Amaly"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "britanian"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex male, female",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Київ, Україна"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Pet's price",
+            "example": "500"
+          },
+          "image": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "comments": {
+            "type": "string",
+            "description": "User's commet",
+            "example": "good cat"
+          }
+        },
+        "example": {
+          "category": "sell",
+          "title": "Продаю кошеня",
+          "name": "Димок",
+          "breed": "Британський короткошерсний",
+          "sex": "male",
+          "location": "Київ, Україна",
+          "price": 500,
+          "image": "http://res.cloudinary.com/dtk7nhyzp/image/upload/v1676882130/muktgrmyiudgodkxzvgt.jpg",
+          "comments": "Продаю кошеня породи британський короткошерсний. Дуже добрий та лагідний."
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
