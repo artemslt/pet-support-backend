@@ -1,5 +1,5 @@
 const { User } = require("../../models/user");
-const {NotFound} = require('http-errors')
+// const {NotFound} = require('http-errors')
 
 const getFavoriteNotices = async (req, res, next) => {
   const { id: userId } = req.user;
@@ -12,7 +12,8 @@ const getFavoriteNotices = async (req, res, next) => {
   const result = currentUser.favorite;
 
   if (result.length === 0) {
-    throw new NotFound("Sorry, you do not have favorite notices")
+    return res.status(404).json({ message: 'Sorry, you do not have favorite notices' });
+    // throw new NotFound("Sorry, you do not have favorite notices")
   }
 
   res.json({

@@ -15,6 +15,7 @@ const newSchema = Schema({
   },
   date: {
     type: String,
+    required: true
   }
 }, { versionKey: false, timestamps: true });
 
