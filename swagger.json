@@ -224,7 +224,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation"
           },
           "400": {
@@ -245,7 +245,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -312,7 +312,7 @@
         "parameters": [{ "in": "path", "name": "petId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation"
           },
           "400": {
@@ -334,7 +334,7 @@
         "security": [{ "Bearer": [] }],
 
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
