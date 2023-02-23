@@ -24,7 +24,8 @@ const addNewNotice = async (req, res) => {
   
   fs.unlink(upload);
 
-  const newNotice = await Notice.create({...req.body, image, owner});
+  const newNotice = await Notice.create({ ...req.body, image, owner });
+  
   res.json({
     status: "success",
     code: 200,

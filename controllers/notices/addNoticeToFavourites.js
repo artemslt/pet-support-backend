@@ -1,7 +1,7 @@
 const { User } = require("../../models/user");
-const { NotFound } = require("http-errors");
+// const { NotFound } = require("http-errors");
 const Notice = require("../../models/notice");
-const { Conflict } = require('http-errors');
+// const { Conflict } = require('http-errors');
 
 const addNoticeToFavorites = async (req, res) => {
   const { noticeId } = req.params;
@@ -13,11 +13,13 @@ const addNoticeToFavorites = async (req, res) => {
   );
 
   if (!notice) {
-    throw NotFound("Sorry, there is no ad");
-  }
+    return res.status(404).json({ message: 'Sorry, notice does not exist or has been already removed' });
+    // throw NotFound("Sorry, there is no ad");
+  };
 
   if (result.favorite.includes(noticeId)) {
-    throw new Conflict("This notice has been already added to the list of favorites");
+    return res.status(409).json({ message: 'This notice has been already added to the list of favorites' });
+    // new Conflict("This notice has been already added to the list of favorites");
   };
 
   res.json({

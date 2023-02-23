@@ -1,5 +1,5 @@
 const Notice = require("../../models/notice");
-const { NotFound } = require('http-errors');
+// const { NotFound } = require('http-errors');
 
 const getNoticesByUser = async (req, res, next) => {
   const { _id: owner } = req.user;
@@ -8,7 +8,8 @@ const getNoticesByUser = async (req, res, next) => {
   const result = await Notice.find({ owner }, "", {skip, limit: Number(limit)});
   
   if (result.length === 0) {
-    throw new NotFound("You do not have any notices")
+    return res.status(404).json({ message: 'You do not have any notices' });
+    // throw new NotFound("You do not have any notices")
   };
 
   res.json({
