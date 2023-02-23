@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const { Pet } = require('../../models/pet');
+const fs = require('fs/promises');
 require('dotenv').config();
 
 cloudinary.config({
@@ -9,22 +10,15 @@ cloudinary.config({
 });
 
 const addPet = async (req, res) => {
-  const petPhotoName = req.file.originalname;
-  const updateAvatar = cloudinary.uploader.upload(req.file.path, {
-    public_id: petPhotoName,
+  const { path: upload } = req.file;
+  const { url } = await cloudinary.uploader.upload(upload, {
+    width: 182,
+    height: 182,
+    crop: 'fill',
   });
-  updateAvatar
-    .then(data => {
-      return data.secure_url;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  const url = cloudinary.url(petPhotoName, {
-    width: 100,
-    height: 150,
-    Crop: 'fill',
-  });
+
+  fs.unlink(upload);
+
   const { _id } = req.user;
   const result = await Pet.create({ ...req.body, photo: url, owner: _id });
   res.status(201).json({

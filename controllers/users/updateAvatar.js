@@ -22,7 +22,6 @@ const updateAvatar = async (req, res) => {
     ],
   });
   const image = url;
-  console.log(image);
 
   fs.unlink(upload);
 
