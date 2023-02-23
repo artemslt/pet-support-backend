@@ -103,11 +103,6 @@ const joiGoogleLoginSchema = Joi.object({
     .min(10)
     .max(63)
     .required('Email is required'),
-  password: Joi.string()
-    .pattern(passwordRegexp, 'Whitespace is not allowed')
-    .min(7)
-    .max(32)
-    .required('Password is required'),
 });
 
 const User = model('user', userSchema);
