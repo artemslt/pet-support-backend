@@ -3,7 +3,11 @@ const { auth } = require('../../middleware/auth');
 const { validation } = require('../../middleware/validation');
 const { ctrlWrapper } = require('../../middleware/ctrlWrapper');
 const { auth: ctrl } = require('../../controllers');
-const { joiRegisterSchema, joiLoginSchema } = require('../../models/user');
+const {
+  joiRegisterSchema,
+  joiLoginSchema,
+  joiGoogleLoginSchema,
+} = require('../../models/user');
 
 const router = express.Router();
 
@@ -14,6 +18,10 @@ router.post(
 );
 router.post('/login', validation(joiLoginSchema), ctrlWrapper(ctrl.login));
 router.get('/logout', auth, ctrlWrapper(ctrl.logout));
-router.post('/googlelogin', ctrlWrapper(ctrl.googleLogin));
+router.post(
+  '/googlelogin',
+  validation(joiGoogleLoginSchema),
+  ctrlWrapper(ctrl.googleLogin)
+);
 
 module.exports = router;
