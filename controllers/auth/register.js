@@ -1,4 +1,3 @@
-const { Conflict } = require('http-errors');
 const bcryptjs = require('bcryptjs');
 // const { v4: uuidv4 } = require('uuid');
 
@@ -8,7 +7,9 @@ const register = async (req, res) => {
   const { name, email, password, location, phone } = req.body;
   const user = await User.findOne({ email });
   if (user) {
-    throw new Conflict(`User with email ${email} already exists`);
+    return res
+      .status(409)
+      .json({ message: `User with email ${email} already exists` });
   }
   // const verificationToken = uuidv4();
   const hashPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
