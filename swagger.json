@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "Pet Support App",
     "description": "Showing off swagger-ui-express",
     "license": {
@@ -12,9 +12,6 @@
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json", "multipart/form-data"],
   "servers": [
-    {
-      "url": "http://localhost:4000"
-    },
     {
       "url": "https://pet-support-backend-v8vc.onrender.com/"
     }
@@ -111,8 +108,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
             "content": {}
           }
         }
@@ -133,8 +130,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
             "content": {}
           }
         }
@@ -161,8 +158,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -199,8 +200,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -231,8 +236,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -259,8 +268,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -298,8 +311,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -319,8 +336,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -331,8 +352,6 @@
         "tags": ["News"],
         "summary": "News",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
-
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -348,8 +367,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -360,10 +379,8 @@
         "tags": ["Friends"],
         "summary": "Friends",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
-
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -377,8 +394,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -390,7 +407,7 @@
         "summary": "Notices by category",
         "parameters": [{ "in": "path", "name": "category" }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -404,8 +421,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -416,6 +433,7 @@
         "tags": ["Notices"],
         "summary": "Get notices by id",
         "parameters": [{ "in": "path", "name": "noticeId" }],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -431,8 +449,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -441,6 +463,7 @@
         "tags": ["Notices"],
         "summary": "Delete notices by id",
         "parameters": [{ "in": "path", "name": "noticeId" }],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
             "description": "Successful operation"
@@ -449,8 +472,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -477,8 +504,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -505,8 +536,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -518,7 +553,6 @@
         "summary": "Add notices to favorite",
         "parameters": [{ "in": "path", "name": "noticeId" }],
         "security": [{ "Bearer": [] }],
-
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -534,8 +568,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -544,6 +582,7 @@
         "tags": ["Notices"],
         "summary": "Remove notice from favorite",
         "parameters": [{ "in": "path", "name": "noticeId" }],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
             "description": "Successful operation"
@@ -552,8 +591,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -591,8 +634,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -618,8 +665,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
