@@ -55,7 +55,8 @@ const userSchema = Schema(
 
 const emailRegexp =
   /^([a-zA-Z0-9_.]+){1}([a-zA-Z0-9_\-.]+){1}@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,3})$/;
-const passwordRegexp = /^\S*$/;
+const passwordRegexp =
+  /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()])[A-Za-z\d@$!%*?&]/;
 const nameRegexp = /^([a-zA-Zа-яА-ЯІіЇїЄє\s]+)$/;
 const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 const locationRegexp =
@@ -69,7 +70,10 @@ const joiRegisterSchema = Joi.object({
     .max(63)
     .required('Email must be in format mail@mail.com'),
   password: Joi.string()
-    .pattern(passwordRegexp, 'Whitespace is not allowed')
+    .pattern(
+      passwordRegexp,
+      'At least one upper and lowercase letter, number, special character, space is not allowed'
+    )
     .min(7)
     .max(32)
     .required('Password is required'),
