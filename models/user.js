@@ -29,7 +29,11 @@ const userSchema = Schema(
       type: String,
       default: '00.00.0000',
     },
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
       type: String,
       default: null,
     },
@@ -103,6 +107,9 @@ const joiGoogleLoginSchema = Joi.object({
   name: Joi.string().required('Name is required'),
   email: Joi.string().email().required('Email is required'),
 });
+const joiRefreshTokenSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
 
 const User = model('user', userSchema);
 module.exports = {
@@ -110,4 +117,5 @@ module.exports = {
   joiRegisterSchema,
   joiLoginSchema,
   joiGoogleLoginSchema,
+  joiRefreshTokenSchema,
 };

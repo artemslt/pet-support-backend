@@ -6,6 +6,7 @@ const { auth: ctrl } = require('../../controllers');
 const {
   joiRegisterSchema,
   joiGoogleLoginSchema,
+  joiRefreshTokenSchema,
 } = require('../../models/user');
 
 const router = express.Router();
@@ -21,6 +22,11 @@ router.post(
   '/googlelogin',
   validation(joiGoogleLoginSchema),
   ctrlWrapper(ctrl.googleLogin)
+);
+router.post(
+  '/refresh',
+  validation(joiRefreshTokenSchema),
+  ctrlWrapper(ctrl.refresh)
 );
 
 module.exports = router;
