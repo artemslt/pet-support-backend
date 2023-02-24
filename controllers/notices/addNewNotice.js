@@ -26,9 +26,9 @@ const addNewNotice = async (req, res) => {
 
   const newNotice = await Notice.create({ ...req.body, image, owner });
   
-  res.json({
+  res.status(201).json({
     status: "success",
-    code: 200,
+    code: 201,
     message: "Notice has been successfully added",
     data: {
       newNotice
