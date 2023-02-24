@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "2.0.0",
+    "version": "2.0.3",
     "title": "Pet Support App",
     "description": "Showing off swagger-ui-express",
     "license": {
@@ -435,7 +435,7 @@
         "parameters": [{ "in": "path", "name": "noticeId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -465,7 +465,7 @@
         "parameters": [{ "in": "path", "name": "noticeId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation"
           },
           "400": {
@@ -490,7 +490,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -522,7 +522,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -554,7 +554,7 @@
         "parameters": [{ "in": "path", "name": "noticeId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -584,7 +584,7 @@
         "parameters": [{ "in": "path", "name": "noticeId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation"
           },
           "400": {
@@ -651,7 +651,7 @@
         "summary": "Search notices",
         "parameters": [{ "in": "path", "name": "search" }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -1127,6 +1127,11 @@
               "description": "Pet's name",
               "example": "Amaly"
             },
+            "date": {
+              "type": "string",
+              "description": "Pet's birthday",
+              "example": "27.06.2020"
+            },
             "breed": {
               "type": "string",
               "description": "Pet's breed",
@@ -1218,6 +1223,7 @@
                 "category": "sell",
                 "title": "Продаю кошеня",
                 "name": "Димок",
+                "date": "15.06.2020",
                 "breed": "Британський короткошерсний",
                 "sex": "male",
                 "location": "Київ, Україна",
@@ -1258,6 +1264,11 @@
             "type": "string",
             "description": "Pet's name",
             "example": "Amaly"
+          },
+          "date": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "27.06.2020"
           },
           "breed": {
             "type": "string",
@@ -1329,6 +1340,7 @@
               "category": "sell",
               "title": "Продаю кошеня",
               "name": "Димок",
+              "date": "15.06.2020",
               "breed": "Британський короткошерсний",
               "sex": "male",
               "location": "Київ, Україна",
@@ -1348,6 +1360,14 @@
       },
       "NewNoticeRequest": {
         "type": "object",
+        "required": [
+          "category",
+          "title",
+          "sex",
+          "location",
+          "image",
+          "comments"
+        ],
         "properties": {
           "category": {
             "type": "string",
@@ -1363,6 +1383,11 @@
             "type": "string",
             "description": "Pet's name",
             "example": "Amaly"
+          },
+          "date": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "27.06.2020"
           },
           "breed": {
             "type": "string",
@@ -1399,6 +1424,7 @@
           "category": "sell",
           "title": "Продаю кошеня",
           "name": "Димок",
+          "date": "15.06.2020",
           "breed": "Британський короткошерсний",
           "sex": "male",
           "location": "Київ, Україна",
