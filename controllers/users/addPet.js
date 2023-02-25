@@ -17,7 +17,7 @@ const addPet = async (req, res) => {
   const diff = today - parsed;
 
   if (diff < 0 || diff > 9467280000000 || isNaN(parsed)) {
-    return res.status(400).json({ message: 'Pls, add date in a valid format' })
+    return res.status(400).json({ message: 'The date must be no more than 300 years in the past, or later than today, and be in the format dd.mm.yyyy' })
   };
 
   const { path: upload } = req.file;
