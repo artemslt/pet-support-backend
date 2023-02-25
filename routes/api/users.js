@@ -6,14 +6,14 @@ const { ctrlWrapper } = require('../../middleware/ctrlWrapper');
 const { users: ctrl } = require('../../controllers');
 const { validation } = require('../../middleware/validation');
 const { joiSchema } = require('../../models/pet');
-const { joiEditSchema } = require('../../models/user');
+// const { joiEditSchema } = require('../../models/user');
 const router = express.Router();
 
 router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
 router.patch(
   '/edit',
   auth,
-  validation(joiEditSchema),
+//   validation(joiEditSchema),
   ctrlWrapper(ctrl.editInfo)
 );
 router.get('/', auth, ctrlWrapper(ctrl.getFullInfo));
