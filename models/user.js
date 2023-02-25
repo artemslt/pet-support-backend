@@ -86,6 +86,21 @@ const joiRegisterSchema = Joi.object({
     .max(13)
     .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
 });
+const joiEditSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
+    .min(6)
+    .max(63),
+  name: Joi.string().pattern(nameRegexp, 'Name must contain only letters'),
+  location: Joi.string().pattern(
+    locationRegexp,
+    'Location must be in format City, Region'
+  ),
+  phone: Joi.string()
+    .max(13)
+    .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
+});
 const joiLoginSchema = Joi.object({
   email: Joi.string()
     .email()
@@ -108,6 +123,7 @@ const User = model('user', userSchema);
 module.exports = {
   User,
   joiRegisterSchema,
+  joiEditSchema,
   joiLoginSchema,
   joiGoogleLoginSchema,
 };

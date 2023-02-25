@@ -31,7 +31,7 @@ const petSchema = new Schema(
   { versionKey: false }
 );
 
-const nameRegexp = /^([a-zA-Zа-яА-ЯІіЇїЄє\s]+)$/;
+const nameRegexp = /^([a-zA-Zа-яА-ЯёЁёЁЇїІіҐґЄє\s]+)$/;
 const birthdayRegexp = /^(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?$/;
 
 const joiSchema = Joi.object({
@@ -48,7 +48,6 @@ const joiSchema = Joi.object({
     .min(3)
     .max(40)
     .required('Breed is required'),
-  photo: Joi.string().required('Photo is required'),
   comment: Joi.string().min(8).max(120).required('Comment is required'),
 });
 
