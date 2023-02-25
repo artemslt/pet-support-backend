@@ -18,7 +18,7 @@ const googleLogin = async (req, res) => {
       status: 'success',
       code: 200,
       data: {
-        user: { name, email, birthday, location, phone, avatarURL },
+        user: { email, birthday, location, phone, avatarURL },
         token,
       },
     });
