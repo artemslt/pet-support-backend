@@ -40,9 +40,9 @@ const userSchema = Schema(
       },
     ],
     avatarURL: { type: String, default: null },
-    resetLink: {
-      data: String,
-      default: '',
+    resetToken: {
+      type: String,
+      default: null,
     },
     // verify: {
     //   type: Boolean,
