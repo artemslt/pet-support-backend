@@ -1,10 +1,12 @@
+const axios = require('axios');
+
 const googleAuth = async (req, res, next) => {
   const { accessToken } = req.body;
 
-  const { email } = await res.redirect(
+  const validation = await axios.get(
     `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
   );
-  if (email !== email.req.body) {
+  if (validation.email !== req.body.email) {
     return res.status(403).json({ message: 'Invalid access token or email' });
   }
   next();
