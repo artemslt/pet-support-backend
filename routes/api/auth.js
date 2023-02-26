@@ -24,5 +24,7 @@ router.post(
   validation(joiGoogleLoginSchema),
   ctrlWrapper(ctrl.googleLogin)
 );
+router.patch('/resetpassword', ctrlWrapper(ctrl.resetPass));
+router.patch('/newpassword', ctrlWrapper(ctrl.newPass));
 
 module.exports = router;
