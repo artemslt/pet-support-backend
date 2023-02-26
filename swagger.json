@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "2.0.3",
+    "version": "3.0.1",
     "title": "Pet Support App",
     "description": "Showing off swagger-ui-express",
     "license": {
@@ -125,6 +125,103 @@
         "responses": {
           "204": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/resetpassword": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User reset password",
+        "parameters": [],
+        "requestBody": {
+          "description": "User's email",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "message": "User updated, email send"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/newpassword": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User reset password",
+        "parameters": [],
+        "requestBody": {
+          "description": "User's email",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "resetToken": {
+                    "type": "string",
+                    "description": "resetToken",
+                    "example": "a55a69q633ad4adqqw632aas+dasda6sd+9sd5as+das4dad.as5da6sd23as.dasd4a"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's new password",
+                    "example": "newpassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)",
