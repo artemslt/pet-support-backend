@@ -1,13 +1,9 @@
 const { Pet } = require('../../models/pet');
-const { Error } = require('http-errors');
-
 const removePet = async (req, res) => {
   const { petId } = req.params;
   const result = await Pet.findByIdAndRemove(petId);
   if (!result) {
-    const error = new Error('Not found');
-    error.status = 404;
-    throw error;
+    return res.status(404).json({ message: 'This pet not found' });
   }
   res.json({
     status: 'success',

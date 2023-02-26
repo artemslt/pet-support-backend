@@ -1,4 +1,3 @@
-const { Unauthorized } = require('http-errors');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models/user');
@@ -10,18 +9,20 @@ const auth = async (req, res, next) => {
   const [bearer, token] = authorization.split(' ');
   try {
     if (bearer !== 'Bearer') {
-      throw new Unauthorized();
+      return res.status(401).json({ message: 'Unauthorized user' });
     }
     const { id } = jwt.verify(token, SECRET_KEY);
     const user = await User.findById(id);
     if (!user || !user.token) {
-      throw new Unauthorized();
+      return res.status(401).json({ message: 'Unauthorized user' });
     }
     req.user = user;
     next();
   } catch (error) {
     if (error.message === 'Invalid signature') {
-      error.status = 401;
+      return res
+        .status(401)
+        .json({ message: `Unauthorized user: ${error.message}` });
     }
     next(error);
   }

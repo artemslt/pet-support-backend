@@ -1,6 +1,7 @@
 const express = require('express');
 const { auth } = require('../../middleware/auth');
 const { validation } = require('../../middleware/validation');
+const { googleAuth } = require('../../middleware/google-auth');
 const { ctrlWrapper } = require('../../middleware/ctrlWrapper');
 const { auth: ctrl } = require('../../controllers');
 const {
@@ -19,6 +20,7 @@ router.post('/login', ctrlWrapper(ctrl.login));
 router.get('/logout', auth, ctrlWrapper(ctrl.logout));
 router.post(
   '/googlelogin',
+  googleAuth,
   validation(joiGoogleLoginSchema),
   ctrlWrapper(ctrl.googleLogin)
 );

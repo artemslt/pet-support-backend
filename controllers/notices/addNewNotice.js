@@ -9,6 +9,16 @@ cloudinary.config({
 });
 
 const addNewNotice = async (req, res) => {
+  let { date } = req.body;
+  date = new Date(date.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+  const parsedDate = Date.parse(date);
+  const today = Date.now(); 
+  const diff = today - parsedDate;
+
+  if (diff < 0 || diff > 9467280000000 || isNaN(parsedDate)) {
+    return res.status(400).json({ message: 'The date must be no more than 300 years in the past, or later than today, and be in the format dd.mm.yyyy' })
+  };
+
   const { _id: owner } = req.user;
 
   const { path: upload } = req.file;
@@ -24,10 +34,11 @@ const addNewNotice = async (req, res) => {
   
   fs.unlink(upload);
 
-  const newNotice = await Notice.create({...req.body, image, owner});
-  res.json({
+  const newNotice = await Notice.create({ ...req.body, image, owner });
+  
+  res.status(201).json({
     status: "success",
-    code: 200,
+    code: 201,
     message: "Notice has been successfully added",
     data: {
       newNotice

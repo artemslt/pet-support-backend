@@ -19,7 +19,7 @@ const newSchema = Schema({
     maxLength: 16
   },
   date: {
-    type: Date
+    type: String
   },
   breed: {
     type: String,
