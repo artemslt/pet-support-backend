@@ -8,23 +8,27 @@ const { SECRET_KEY } = process.env;
 
 const resetPass = async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res
-      .status(400)
-      .json({ message: `There is no user with email ${email}` });
-  }
-  const token = jwt.sign({ _id: user._id }, SECRET_KEY);
-  const linkMessage = {
-    to: email,
-    subject: 'Reseting your password',
-    html: `
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `There is no user with email ${email}` });
+    }
+    const token = jwt.sign({ _id: user._id }, SECRET_KEY);
+    const linkMessage = {
+      to: email,
+      subject: 'Reseting your password',
+      html: `
     <h2>Please click on the link below to reset your password</h2>
     <a href="https://artemslt.github.io/pet-support-app/resetpassword/${token}">Click here!</a>`,
-  };
-  await sendEmail(linkMessage);
-  await User.findByIdAndUpdate(user._id, { resetToken: token });
-  res.json({ message: 'User updated, email sent' });
+    };
+    await sendEmail(linkMessage);
+    await User.findByIdAndUpdate(user._id, { resetToken: token });
+    res.json({ message: 'User updated, email sent' });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
 };
 
 module.exports = resetPass;
