@@ -31,28 +31,24 @@ const petSchema = new Schema(
   { versionKey: false }
 );
 
-const nameRegexp = /^([a-zA-Zа-яА-ЯІіЇїЄє\s]+)$/;
+const nameRegexp = /^([a-zA-Zа-яА-ЯёЁёЁЇїІіҐґЄє\s]+)$/;
 const birthdayRegexp = /^(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?$/;
 
 const joiSchema = Joi.object({
   name: Joi.string()
     .pattern(nameRegexp, 'Name must contain only letters')
     .min(2)
-    .max(16, 'Name must be 16 characters maximum')
+    .max(16)
     .required('Name is required'),
   birthday: Joi.string()
     .pattern(birthdayRegexp, 'Birthday must be in format 19.12.2020')
     .required('Birthday is required'),
   breed: Joi.string()
     .pattern(nameRegexp, 'Breed must contain only letters')
-    .min(3, 'Breed must be 3 characters minimum')
-    .max(40, 'Breed must be 40 characters maximum')
+    .min(3)
+    .max(40)
     .required('Breed is required'),
-  photo: Joi.string().required('Photo is required'),
-  comment: Joi.string()
-    .min(8, 'Comment must be 8 characters minimum')
-    .max(120, 'Comment must be 120 characters maximum')
-    .required('Comment is required'),
+  comment: Joi.string().min(8).max(120).required('Comment is required'),
 });
 
 const Pet = model('pet', petSchema);
