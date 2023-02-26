@@ -1,10 +1,10 @@
 const googleAuth = async (req, res, next) => {
   const { accessToken } = req.body;
 
-  const { email_verified, email } = res.redirect(
+  const { email } = res.redirect(
     `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
   );
-  if (!email_verified || email !== email.req.body) {
+  if (email !== email.req.body) {
     return res.status(403).json({ message: 'Invalid access token or email' });
   }
   next();
