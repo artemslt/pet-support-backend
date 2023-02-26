@@ -767,6 +767,11 @@
                 "description": "User's email",
                 "format": "email"
               },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "00.00.0000"
+              },
               "location": {
                 "type": "string",
                 "description": "User's location",
@@ -776,6 +781,11 @@
                 "type": "string",
                 "description": "User's phone",
                 "example": "+380000000000"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "Same url"
               }
             }
           },
@@ -792,8 +802,10 @@
             "user": {
               "name": "Name",
               "email": "user123@example.com",
+              "birthday": "00.00.0000",
               "location": "Kiyv, Ukraine",
-              "phone": "+380000000000"
+              "phone": "+380000000000",
+              "avatarURL": null
             },
             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjY5NWI5YTM3MDExNGZjYzYzMjAyYSIsImlhdCI6MTY3NzEwNDcyNH0.gFE_A-RS47dgyBSWpU_QrnLKPw2ToZ4DBFmUYZi6gfw"
           }

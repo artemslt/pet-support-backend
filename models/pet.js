@@ -37,7 +37,7 @@ const birthdayRegexp = /^(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?$/;
 const joiSchema = Joi.object({
   name: Joi.string()
     .pattern(nameRegexp, 'Name must contain only letters')
-    .min(2, 'Name must be 2 characters minimum')
+    .min(2)
     .max(16, 'Name must be 16 characters maximum')
     .required('Name is required'),
   birthday: Joi.string()
