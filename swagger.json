@@ -199,12 +199,12 @@
                 "properties": {
                   "resetToken": {
                     "type": "string",
-                    "description": "User's email",
+                    "description": "resetToken",
                     "example": "a55a69q633ad4adqqw632aas+dasda6sd+9sd5as+das4dad.as5da6sd23as.dasd4a"
                   },
                   "password": {
                     "type": "string",
-                    "description": "User's email",
+                    "description": "User's new password",
                     "example": "newpassword"
                   }
                 }
