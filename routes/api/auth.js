@@ -7,6 +7,8 @@ const { auth: ctrl } = require('../../controllers');
 const {
   joiRegisterSchema,
   joiGoogleLoginSchema,
+  joiRPEmailSchema,
+  joiRPPassSchema,
 } = require('../../models/user');
 
 const router = express.Router();
@@ -24,7 +26,15 @@ router.post(
   validation(joiGoogleLoginSchema),
   ctrlWrapper(ctrl.googleLogin)
 );
-router.patch('/resetpassword', ctrlWrapper(ctrl.resetPass));
-router.patch('/newpassword', ctrlWrapper(ctrl.newPass));
+router.patch(
+  '/resetpassword',
+  validation(joiRPEmailSchema),
+  ctrlWrapper(ctrl.resetPass)
+);
+router.patch(
+  '/newpassword',
+  validation(joiRPPassSchema),
+  ctrlWrapper(ctrl.newPass)
+);
 
 module.exports = router;

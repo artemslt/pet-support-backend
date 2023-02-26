@@ -90,6 +90,7 @@ const joiRegisterSchema = Joi.object({
     .max(13)
     .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
 });
+
 const joiEditSchema = Joi.object({
   email: Joi.string()
     .email()
@@ -105,6 +106,7 @@ const joiEditSchema = Joi.object({
     .max(13)
     .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
 });
+
 const joiLoginSchema = Joi.object({
   email: Joi.string()
     .email()
@@ -118,10 +120,29 @@ const joiLoginSchema = Joi.object({
     .max(32)
     .required('Password is required'),
 });
+
 const joiGoogleLoginSchema = Joi.object({
   name: Joi.string().required('Name is required'),
   email: Joi.string().email().required('Email is required'),
   accessToken: Joi.string(),
+});
+
+const joiRPEmailSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .pattern(emailRegexp, 'Email must be in format mail@mail.com')
+    .min(10)
+    .max(63)
+    .required('Email must be in format mail@mail.com'),
+});
+
+const joiRPPassSchema = Joi.object({
+  password: Joi.string()
+    .pattern(passwordRegexp, 'Whitespace is not allowed')
+    .min(7)
+    .max(32)
+    .required('Password is required'),
+  resetToken: Joi.string().required('Reset token is required'),
 });
 
 const User = model('user', userSchema);
@@ -131,4 +152,6 @@ module.exports = {
   joiEditSchema,
   joiLoginSchema,
   joiGoogleLoginSchema,
+  joiRPEmailSchema,
+  joiRPPassSchema,
 };
