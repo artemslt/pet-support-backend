@@ -117,6 +117,7 @@ const joiLoginSchema = Joi.object({
 const joiGoogleLoginSchema = Joi.object({
   name: Joi.string().required('Name is required'),
   email: Joi.string().email().required('Email is required'),
+  accessToken: Joi.string(),
 });
 
 const User = model('user', userSchema);
