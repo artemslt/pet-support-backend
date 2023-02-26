@@ -1,7 +1,7 @@
 const googleAuth = async (req, res, next) => {
   const { accessToken } = req.body;
 
-  const { email } = res.redirect(
+  const { email } = await res.redirect(
     `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
   );
   if (email !== email.req.body) {
