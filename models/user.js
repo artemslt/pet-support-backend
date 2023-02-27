@@ -44,14 +44,6 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-    // verify: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, 'Verify token is required'],
-    // },
   },
 
   { versionKey: false }
@@ -60,7 +52,7 @@ const userSchema = Schema(
 const emailRegexp =
   /^([a-zA-Z0-9_.]+){1}([a-zA-Z0-9_\-.]+){1}@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,3})$/;
 const passwordRegexp =
-  /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()])[A-Za-z\d@$!%*?&]/;
+  /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()-_/#:;<>])[A-Za-z\d@$!%*?&]/;
 const nameRegexp = /^([a-zA-Zа-яА-ЯІіЇїЄє\s]+)$/;
 const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 const locationRegexp =
