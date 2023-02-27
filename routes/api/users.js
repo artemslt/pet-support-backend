@@ -6,16 +6,11 @@ const { ctrlWrapper } = require('../../middleware/ctrlWrapper');
 const { users: ctrl } = require('../../controllers');
 const { validation } = require('../../middleware/validation');
 const { joiSchema } = require('../../models/pet');
-// const { joiEditSchema } = require('../../models/user');
+
 const router = express.Router();
 
 router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
-router.patch(
-  '/edit',
-  auth,
-//   validation(joiEditSchema),
-  ctrlWrapper(ctrl.editInfo)
-);
+router.patch('/edit', auth, ctrlWrapper(ctrl.editInfo));
 router.get('/', auth, ctrlWrapper(ctrl.getFullInfo));
 router.post(
   '/addpet',
@@ -31,6 +26,5 @@ router.patch(
   upload.single('avatar'),
   ctrlWrapper(ctrl.updateAvatar)
 );
-// router.get('/verify/:verificationToken', auth, ctrlWrapper(ctrl.verifyEmail));
 
 module.exports = router;
