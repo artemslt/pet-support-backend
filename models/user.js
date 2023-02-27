@@ -73,14 +73,19 @@ const joiRegisterSchema = Joi.object({
     .min(7)
     .max(32)
     .required('Password is required'),
-  name: Joi.string().pattern(nameRegexp, 'Name must contain only letters'),
-  location: Joi.string().pattern(
-    locationRegexp,
-    'Location must be in format City, Region'
-  ),
+  name: Joi.string()
+    .pattern(nameRegexp, 'Name must contain only letters')
+    .empty('')
+    .default('New User'),
+  location: Joi.string()
+    .pattern(locationRegexp, 'Location must be in format City, Region')
+    .empty('')
+    .default('City, Region'),
   phone: Joi.string()
     .max(13)
-    .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx'),
+    .pattern(phoneRegexp, 'Mobile phone must be in format +380xxxxxxxxx')
+    .empty('')
+    .default('+380000000000'),
 });
 
 const joiEditSchema = Joi.object({
