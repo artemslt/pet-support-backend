@@ -911,6 +911,11 @@
       "CurrentUserResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "63f14239b405b98cd800d117"
+          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -941,23 +946,27 @@
             "description": "User's birthday",
             "example": "Same url"
           },
-          "pets": {
+          "favorite": {
             "type": "array",
-            "description": "User's birthday",
-            "example": "Same url"
+            "properties": {
+              "type": "string",
+              "description": "Friend's id",
+              "example": "63f14239b405b98cd800d117"
+            }
           }
         },
         "example": {
           "status": "success",
           "code": 200,
           "data": {
+            "_id": "63f330d345cc47c53a8fd34e",
             "name": "Name",
             "email": "user123@example.com",
             "location": "Kiyv, Ukraine",
             "phone": "+380000000000",
             "birthday": "00.00.0000",
             "avatarURL": null,
-            "pets": []
+            "favorite": ["63f14239b405b98cd800d117", "63f14239b405b98cd800d117"]
           }
         }
       },
