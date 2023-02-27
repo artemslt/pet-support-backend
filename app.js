@@ -15,13 +15,11 @@ const friendsRouter = require('./routes/api/friends');
 const authRouter = require('./routes/api/auth');
 const usersRouter = require('./routes/api/users');
 const noticesRouter = require('./routes/api/notices');
-const redirectToDocs = require('./middleware/redirectToDocs');
 
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use('/', redirectToDocs);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/auth', authRouter);
