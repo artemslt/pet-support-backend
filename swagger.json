@@ -950,7 +950,7 @@
             "type": "array",
             "properties": {
               "type": "string",
-              "description": "Friend's id",
+              "description": "Favorite ads id",
               "example": "63f14239b405b98cd800d117"
             }
           }
