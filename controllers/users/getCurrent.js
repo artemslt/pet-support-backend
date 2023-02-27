@@ -1,11 +1,11 @@
 const getCurrent = async (req, res) => {
   try {
-    const user = req.user;
+    const { name, email, birthday, phone, location, avatarURL } = req.user;
     res.json({
       status: 'success',
       code: 200,
       data: {
-        user,
+        user: { name, email, birthday, phone, location, avatarURL },
       },
     });
   } catch (error) {
