@@ -1,5 +1,4 @@
-const Notice = require("../../models/notice");
-// const {NotFound} = require('http-errors')
+const Notice = require('../../models/notice');
 
 const removeNoticeById = async (req, res) => {
   const { noticeId } = req.params;
@@ -7,13 +6,15 @@ const removeNoticeById = async (req, res) => {
   const notice = await Notice.findByIdAndRemove({ _id: noticeId, owner });
 
   if (!notice) {
-    return res.status(404).json({ message: 'Notice does not exist or has been already removed' });
-  };
+    return res
+      .status(404)
+      .json({ message: 'Notice does not exist or has been already removed' });
+  }
 
   res.json({
-    status: "success",
+    status: 'success',
     code: 200,
-    message: "Notice has been removed "
+    message: 'Notice has been removed ',
   });
 };
 
