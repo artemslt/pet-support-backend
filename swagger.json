@@ -14,6 +14,9 @@
   "servers": [
     {
       "url": "https://pet-support-backend-v8vc.onrender.com/"
+    },
+    {
+      "url": "http://localhost:4000/"
     }
   ],
   "tags": [
@@ -502,7 +505,29 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Notices by category",
-        "parameters": [{ "in": "path", "name": "category" }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -584,7 +609,22 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Get user's notices",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -616,7 +656,22 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Get user's favorite notices",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
