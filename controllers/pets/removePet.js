@@ -1,4 +1,5 @@
 const { Pet } = require('../../models/pet');
+
 const removePet = async (req, res) => {
   const { petId } = req.params;
   const result = await Pet.findByIdAndRemove(petId);
