@@ -8,7 +8,6 @@ const sendEmail = async data => {
   const email = { ...data, from: SG_EMAIL_ADRESS };
   try {
     await sgMail.send(email);
-    console.log('email sent');
     return true;
   } catch (error) {
     throw error;
