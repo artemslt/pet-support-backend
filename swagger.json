@@ -379,7 +379,7 @@
         }
       }
     },
-    "/api/users/addpet": {
+    "/api/pets/addpet": {
       "post": {
         "tags": ["User"],
         "summary": "Add user's pet",
@@ -422,7 +422,7 @@
         }
       }
     },
-    "/api/users/{petId}": {
+    "/api/pets/{petId}": {
       "delete": {
         "tags": ["User"],
         "summary": "Delete pet by id",
