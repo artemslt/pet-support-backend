@@ -3,7 +3,7 @@ const { User } = require('../../models/user');
 const getFavoriteNotices = async (req, res, next) => {
   const { id: userId } = req.user;
 
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 12 } = req.query;
   const skip = (page - 1) * limit;
 
   const currentUser = await User.findOne({ _id: userId }, '', {
