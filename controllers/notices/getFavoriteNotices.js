@@ -19,11 +19,16 @@ const getFavoriteNotices = async (req, res, next) => {
       .json({ message: 'Sorry, you do not have favorite notices' });
   }
 
+  const notices = [...result].sort(
+    (firstNotice, secondNotice) =>
+      new Date(secondNotice.createdAt) - new Date(firstNotice.createdAt)
+  );
+
   res.json({
     status: 'success',
     code: 200,
     data: {
-      result,
+      notices,
     },
   });
 };

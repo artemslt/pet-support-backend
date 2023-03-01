@@ -9,12 +9,17 @@ const getNoticeByKeyword = async (req, res) => {
     return res
       .status(404)
       .json({ message: 'There is no notices by your query' });
-  }
+  };
+
+  const notices = [...result].sort(
+    (firstNotice, secondNotice) =>
+      new Date(secondNotice.createdAt) - new Date(firstNotice.createdAt)
+  );
   res.json({
     status: 'success',
     code: 200,
     data: {
-      result,
+      notices,
     },
   });
 };

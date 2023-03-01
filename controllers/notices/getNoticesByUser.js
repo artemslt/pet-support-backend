@@ -11,13 +11,18 @@ const getNoticesByUser = async (req, res, next) => {
 
   if (result.length === 0) {
     return res.status(404).json({ message: 'You do not have any notices' });
-  }
+  };
+
+  const notices = [...result].sort(
+    (firstNotice, secondNotice) =>
+      new Date(secondNotice.createdAt) - new Date(firstNotice.createdAt)
+  );
 
   res.json({
     status: 'success',
     code: 200,
     data: {
-      result,
+      notices,
     },
   });
 };
