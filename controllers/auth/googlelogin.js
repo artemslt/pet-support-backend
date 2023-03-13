@@ -18,6 +18,7 @@ const googleLogin = async (req, res) => {
       code: 200,
       data: {
         user: {
+          _id: user._id,
           name: user.name,
           email: user.email,
           birthday: user.birthday,
