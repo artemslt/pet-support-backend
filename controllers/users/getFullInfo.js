@@ -7,7 +7,7 @@ const getFullInfo = async (req, res) => {
   res.json({
     status: 'success',
     code: 200,
-    data: { name, email, location, phone, birthday, avatarURL, pets },
+    data: { _id, name, email, location, phone, birthday, avatarURL, pets },
   });
 };
 

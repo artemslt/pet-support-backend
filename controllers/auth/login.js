@@ -21,12 +21,12 @@ const login = async (req, res) => {
   };
   const token = jwt.sign(payload, SECRET_KEY);
   await User.findByIdAndUpdate(user._id, { token });
-  const { name, location, birthday, phone, avatarURL } = user;
+  const { _id, name, location, birthday, phone, avatarURL } = user;
   res.json({
     status: 'success',
     code: 200,
     data: {
-      user: { name, email, birthday, location, phone, avatarURL },
+      user: { _id, name, email, birthday, location, phone, avatarURL },
       token,
     },
   });

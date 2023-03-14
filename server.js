@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const app = require('./app');
+const http = require('./app');
 
 const { PORT, DB_HOST } = process.env;
 
@@ -12,7 +12,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
+    http.listen(PORT, () => {
       console.log(`Server running. Use our API on port: ${PORT}`);
     });
     
